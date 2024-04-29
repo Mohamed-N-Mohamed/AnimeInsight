@@ -6,6 +6,8 @@ import { Model } from 'survey-core';
 import StepWizard from 'react-step-wizard';
 import Buttons from '../button/Buttons';
 
+import { useNavigate } from 'react-router-dom';
+
 export default function FavoriteAnime() {
   const FirstPage = (props) => {
     const survey = new Model(favoriteAnimeList);
@@ -28,10 +30,20 @@ export default function FavoriteAnime() {
 
     //handle next page
     const handleNext = () => {
+      console.log(props);
       if (survey.hasErrors()) {
         return;
       }
-      props.nextStep();
+
+      if (props.totalStep === props.currentStep) {
+        return;
+      }
+
+      if (props.totalSteps > props.currentSte) {
+        props.previousStep();
+      }
+
+      //props.nextStep();
     };
 
     console.log(props);
@@ -71,8 +83,17 @@ export default function FavoriteAnime() {
 
     survey.onValueChanged.add(saveData);
 
+    const navigate = useNavigate();
+
     const handleNext = () => {
-      props.nextStep();
+      if (survey.hasErrors()) {
+        return;
+      }
+
+      if (props.totalSteps > props.currentSte) {
+        props.previousStep();
+      }
+      navigate('/Complete');
     };
 
     const handlePrev = () => {
@@ -89,10 +110,6 @@ export default function FavoriteAnime() {
 
   return (
     <>
-      <div className='p-4 text-center'>
-        <h1>Select your Favorite Anime</h1>
-      </div>
-
       <StepWizard>
         <FirstPage />
         <SecondPage />
