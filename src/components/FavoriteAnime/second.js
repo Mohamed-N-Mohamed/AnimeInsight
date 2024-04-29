@@ -7,5 +7,11 @@ export const NotfavoriteAnimeList = {
       choices: ['Naruto', 'Bleach', 'Attack on titan', 'Dr Stone'],
       isRequired: true,
     },
+
+    {
+      name: 'question3',
+      type: 'text',
+      title: "Any other anime that you don't like which are not in the list",
+    },
   ],
 };
