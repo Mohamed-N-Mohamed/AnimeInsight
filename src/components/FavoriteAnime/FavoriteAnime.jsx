@@ -10,14 +10,9 @@ export default function FavoriteAnime() {
   const FirstPage = (props) => {
     const survey = new Model(favoriteAnimeList);
     survey.showNavigationButtons = false;
+    survey.onValueChanged.add(saveData);
 
     const storageItemKey = 'anime-list';
-
-    function saveData(survey) {
-      const data = survey.data;
-      window.localStorage.setItem(storageItemKey, JSON.stringify(data));
-    }
-
     //restore survey results
     const prevData = window.localStorage.getItem(storageItemKey) || null;
 
@@ -26,13 +21,25 @@ export default function FavoriteAnime() {
       survey.data = data;
     }
 
+    function saveData(survey) {
+      const data = survey.data;
+      window.localStorage.setItem(storageItemKey, JSON.stringify(data));
+    }
+
     //handle next page
     const handleNext = () => {
-      survey.onValueChanged.add(saveData);
+      if (survey.hasErrors()) {
+        return;
+      }
       props.nextStep();
     };
 
+    console.log(props);
+
     const handlePrev = () => {
+      if (props.currentStep === 1) {
+        return;
+      }
       props.previousStep();
     };
 
@@ -46,13 +53,21 @@ export default function FavoriteAnime() {
 
   const SecondPage = (props) => {
     const survey = new Model(NotfavoriteAnimeList);
-    console.log(survey.data);
+    survey.showNavigationButtons = false;
+
+    const storageItemKey = 'anime-list';
+    //restore survey results
+    const prevData = window.localStorage.getItem(storageItemKey) || null;
+
+    if (prevData) {
+      const data = JSON.parse(prevData);
+      survey.data = data;
+    }
 
     function saveData(survey) {
       const data = survey.data;
-      console.log(data);
+      window.localStorage.setItem(storageItemKey, JSON.stringify(data));
     }
-    survey.showNavigationButtons = false;
 
     survey.onValueChanged.add(saveData);
 
