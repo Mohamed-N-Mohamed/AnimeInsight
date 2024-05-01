@@ -38,20 +38,15 @@ export default function FavoriteAnime() {
       if (props.totalStep === props.currentStep) {
         return;
       }
-
-      if (props.totalSteps > props.currentSte) {
-        props.previousStep();
-      }
-
-      //props.nextStep();
+      props.nextStep();
     };
 
     console.log(props);
 
     const handlePrev = () => {
-      if (props.currentStep === 1) {
-        return;
-      }
+      // if (props.currentStep === 1) {
+      //   return;
+      // }
       props.previousStep();
     };
 

@@ -12,6 +12,7 @@ export const NotfavoriteAnimeList = {
       name: 'question3',
       type: 'text',
       title: "Any other anime that you don't like which are not in the list",
+      isRequired: true,
     },
   ],
 };
