@@ -18,7 +18,7 @@ module.exports = {
           console.log(error);
           res.status(500).send('Internal Server Error');
           console.log('testing github');
-          console.log('testing github contributions ');
+          console.log('testing github contributions 1');
           return;
         }
 
